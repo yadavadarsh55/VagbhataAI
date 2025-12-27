@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#7A4A2A" # Deep Brown for accents
+backgroundColor = "#FCF9F1" # Light Cream background
+secondaryBackgroundColor = "#F5EFE1" # Slightly darker beige for Sidebar
+textColor = "#5D4037" # Earthy brown for text
+font = "serif"
