@@ -1,4 +1,3 @@
-```markdown
 # Vāgbhaṭa AI 
 
 **Vāgbhaṭa AI** is a Retrieval-Augmented Generation (RAG) application dedicated to sharing the principles of Ayurveda. It is grounded exclusively in the classical texts interpreted by Maharishi Vāgbhaṭa (popularized by Rajiv Dixit Ji), ensuring that answers are authoritative and traceable to specific Sutras.
@@ -39,6 +38,7 @@ This project uses **LangGraph** for conversational flow, **Pinecone** for vector
 ## 📂 Project Structure
 
 ```bash
+Vagbhata/
 ├── app.py                     # Main Streamlit application entry point
 ├── config.py                  # Configuration and environment variable management
 ├── graph.py                   # LangGraph state machine and node definitions
@@ -47,10 +47,11 @@ This project uses **LangGraph** for conversational flow, **Pinecone** for vector
 ├── retrieval.py               # Vector store retrieval logic
 ├── tools.py                   # Tool definitions (Ayurvedic Source retrieval)
 ├── data/
-|   └── data.csv               # The knowledge base (Sutras and analysis)
-└── indexer/
-    └── pinecone_indexer.py    # Script to embed and upload data to Pinecone
-
+│   └── data.csv               # The knowledge base (Sutras and analysis)
+├── indexer/
+│   └── pinecone_indexer.py    # Script to embed and upload data to Pinecone
+└── assets/
+    └── demo.gif               # Demo GIF for showcasing the application
 ```
 
 ---
@@ -117,7 +118,3 @@ streamlit run app.py
 ## ⚠️ Disclaimer
 
 This AI assistant provides information based on Ayurvedic texts. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for medical conditions.
-
-```
-
-```
