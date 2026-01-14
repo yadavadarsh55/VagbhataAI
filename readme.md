@@ -6,7 +6,7 @@ This project uses **LangGraph** for conversational flow, **Pinecone** for vector
 
 ## 🎥 Demo
 
-![Vagbhata AI Demo](assets/demo2.mp4)
+![Vagbhata AI Demo](assets/demo.gif)
 
 > *The demo above shows the bot answering a query about water consumption and providing a safety disclaimer.*
 
