@@ -72,6 +72,8 @@ def get_chatbot_instance():
 # **************************************** Utility Functions *************************
 
 def generate_thread_id():
+    if st.user.is_logged_in:
+        return st.user.name + "|" + str(uuid.uuid4())
     return str(uuid.uuid4())
 
 def reset_chat():
@@ -128,29 +130,42 @@ add_thread(st.session_state['thread_id'])
 
 st.sidebar.title('Vagbhata AI')
 
+st.divider()
+
+if not st.user.is_logged_in:
+    st.sidebar.button("Log in with Google", on_click=st.login)
+
+else:
+    st.sidebar.markdown(f"Welcome, {st.user.name} !!!")
+    st.sidebar.button("Log out", on_click=st.logout)
+
 if st.sidebar.button("New Chat"):
     reset_chat()
     st.rerun()
 
 st.divider()
 
-st.sidebar.header('My Conversations')
+if st.user.is_logged_in:
 
-for thread_id in st.session_state['chat_threads'][::-1]:
-    if st.sidebar.button(get_thread_name(thread_id), key=thread_id):
-        st.session_state['thread_id'] = thread_id
-        
-        messages = load_conversation(thread_id)
-        temp_messages = []
-        for msg in messages:
-            if isinstance(msg, HumanMessage):
-                temp_messages.append({'role': 'user', 'content': msg.content})
-            elif isinstance(msg, AIMessage):
-                if not msg.tool_calls: 
-                    temp_messages.append({'role': 'ai', 'content': msg.content})
-        
-        st.session_state['message_history'] = temp_messages
-        st.rerun()
+    st.sidebar.header('My Conversations')
+
+    for thread_id in st.session_state['chat_threads'][::-1]:
+        if st.user.name == thread_id.split('|')[0]:
+
+            if st.sidebar.button(get_thread_name(thread_id), key=thread_id):
+                st.session_state['thread_id'] = thread_id
+                
+                messages = load_conversation(thread_id)
+                temp_messages = []
+                for msg in messages:
+                    if isinstance(msg, HumanMessage):
+                        temp_messages.append({'role': 'user', 'content': msg.content})
+                    elif isinstance(msg, AIMessage):
+                        if not msg.tool_calls: 
+                            temp_messages.append({'role': 'ai', 'content': msg.content})
+                
+                st.session_state['message_history'] = temp_messages
+                st.rerun()
 
 
 # *************************************** Main Chat UI ********************************
@@ -188,7 +203,7 @@ if user_input:
         graph = build_graph()
         chatbot = graph.compile(checkpointer=checkpointer)
 
-        with st.spinner("Consulting the texts..."):
+        with st.spinner("Responding to message..."):
             try:
                 response = chatbot.invoke(
                     {'messages': [HumanMessage(content=user_input)]}, 
