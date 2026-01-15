@@ -24,7 +24,6 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding-top: 5rem;
     }
     .stButton>button {
         border-radius: 10px;
@@ -100,7 +99,7 @@ def load_conversation(thread_id):
 def get_thread_name(thread_id, max_length=20):
     conv = load_conversation(thread_id)
     if not conv:
-        return "New Thread"
+        return "Untitled"
     for msg in conv:
         if isinstance(msg, HumanMessage):
             name = msg.content
@@ -130,24 +129,23 @@ add_thread(st.session_state['thread_id'])
 
 st.sidebar.title('Vagbhata AI')
 
-st.divider()
-
 if not st.user.is_logged_in:
     st.sidebar.button("Log in with Google", on_click=st.login)
 
 else:
-    st.sidebar.markdown(f"Welcome, {st.user.name} !!!")
     st.sidebar.button("Log out", on_click=st.logout)
 
-if st.sidebar.button("New Chat"):
+st.sidebar.divider()
+
+if st.sidebar.button("New Conversation"):
     reset_chat()
     st.rerun()
 
-st.divider()
+st.sidebar.header('My Conversations')
+if not st.user.is_logged_in:
+    st.sidebar.write("(Login Needed)")
 
 if st.user.is_logged_in:
-
-    st.sidebar.header('My Conversations')
 
     for thread_id in st.session_state['chat_threads'][::-1]:
         if st.user.name == thread_id.split('|')[0]:
@@ -172,13 +170,13 @@ if st.user.is_logged_in:
 
 # If history is empty, show landing page
 if not st.session_state['message_history']:
-    st.markdown("""
+    st.markdown(f"""
         <div class="welcome-container">
-            <h1 style='color: #7A4A2A; font-family: serif;'>Vagbhata</h1>
+            <h1 style='color: #7A4A2A; font-family: serif;'>Vagbhata AI</h1>
             <p style='color: #A1887F; letter-spacing: 2px;'>AYURVEDIC AI GUIDE</p>
             <img src="https://t4.ftcdn.net/jpg/03/24/52/53/240_F_324525304_yUOig2gBoxzdG7DIZCThumXmVIo7mxnb.jpg" width="150" style="margin: 20px;">
-            <h2 style='color: #5D4037;'>Namaste</h2>
-            <p style='color: #8D6E63; max-width: 500px;'>
+            <h2 style='color: #5D4037;'>Namaste, {st.user.name if st.user.is_logged_in else "User"} !</h2>
+            <p style='color: #8D6E63; max-width: 600px;'>
                 I am Vagbhata AI. Ask me about your Ayurveda, its principles or practices.
             </p>
         </div>
