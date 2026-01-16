@@ -18,8 +18,6 @@ def get_vector_store() -> PineconeVectorStore:
 
 def retrieve_from_pinecone(query: str, k: int = 5) -> List[Document]:
     """Retrieve documents from Pinecone."""
-    print(f"DEBUG: Querying Pinecone index '{settings.PINECONE_INDEX_NAME}' for: '{query}'")
-    
     try:
         vector_store = get_vector_store()
         retriever = vector_store.as_retriever(search_kwargs={"k": k})
