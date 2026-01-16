@@ -1,23 +1,24 @@
-import os
+import streamlit as st
 from pydantic_settings import BaseSettings
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class Settings(BaseSettings):
-    # Database
-    DB_USERNAME: str = "postgres"
-    DB_PASSWORD: str = os.environ['DB_PASSWORD']
-    DB_NAME: str = os.environ['DB_NAME']
-    DB_HOST: str = "localhost"
-    DB_PORT: str = "5432"
-    
-    # AI Services
-    GOOGLE_API_KEY: str = os.environ['GOOGLE_API_KEY']
-    PINECONE_API_KEY: str = os.environ['PINECONE_API_KEY']
-    PINECONE_INDEX_NAME: str = "vagbhata-index"
-    EMBEDDING_MODEL: str = "models/text-embedding-004"
-    LLM_MODEL: str = "gemini-2.5-flash-lite"
+    try:
+        # Database
+        DB_USERNAME: str = st.secrets["database"]["username"]
+        DB_PASSWORD: str = st.secrets["database"]["password"]
+        DB_NAME:     str = st.secrets["database"]["name"]
+        DB_HOST:     str = "localhost"
+        DB_PORT:     str = "5432"
+        
+        # AI Services
+        GOOGLE_API_KEY:      str = st.secrets["google"]["api_key"]
+        PINECONE_API_KEY:    str = st.secrets["pinecone"]["api_key"]
+        PINECONE_INDEX_NAME: str = "vagbhata-index"
+        EMBEDDING_MODEL:     str = "models/text-embedding-004"
+        LLM_MODEL:           str = "gemini-2.5-flash-lite"
+    except AttributeError as e:
+            st.error("Missing secret in .streamlit/secrets.toml. Check the logs.")
+            raise e
 
     @property
     def database_url(self) -> str:

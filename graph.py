@@ -15,7 +15,7 @@ class BotState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
 
 # 2. Initialize Model
-llm = ChatGoogleGenerativeAI(model=settings.LLM_MODEL)
+llm = ChatGoogleGenerativeAI(model=settings.LLM_MODEL, google_api_key=settings.GOOGLE_API_KEY)
 llm_with_tools = llm.bind_tools(tools=ALL_TOOLS)
 
 # 3. Define Nodes
