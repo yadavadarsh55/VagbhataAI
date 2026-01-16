@@ -7,8 +7,8 @@ class Settings(BaseSettings):
         DB_USERNAME: str = st.secrets["database"]["username"]
         DB_PASSWORD: str = st.secrets["database"]["password"]
         DB_NAME:     str = st.secrets["database"]["name"]
-        DB_HOST:     str = "localhost"
-        DB_PORT:     str = "5432"
+        DB_HOST:     str = st.secrets["database"]["host"]
+        DB_PORT:     str = st.secrets["database"]["port"]
         
         # AI Services
         GOOGLE_API_KEY:      str = st.secrets["google"]["api_key"]
