@@ -11,6 +11,7 @@ def get_vector_store() -> PineconeVectorStore:
         task_type="retrieval_query"
     )
     return PineconeVectorStore(
+        pinecone_api_key=settings.PINECONE_API_KEY,
         index_name=settings.PINECONE_INDEX_NAME,
         embedding=embeddings,
         text_key="text_content"
