@@ -23,6 +23,7 @@ def retrieve_from_pinecone(query: str, k: int = 5) -> List[Document]:
         vector_store = get_vector_store()
         retriever = vector_store.as_retriever(search_kwargs={"k": k})
         docs = retriever.invoke(query)
+        print("Heres the docs:/n",docs)
         return docs
     except Exception as e:
         print(f"ERROR: Retrieval failed - {e}")
