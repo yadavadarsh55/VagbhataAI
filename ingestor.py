@@ -6,14 +6,14 @@ from google import genai
 from google.genai import types
 from pinecone import Pinecone, ServerlessSpec
 
-# Load environment variables
-load_dotenv()
+from config import settings
+
 
 # --- Configuration ---
 DATA_FILE = "data/data.csv"
 INDEX_NAME = "vagbhata-index"
-PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+PINECONE_API_KEY = settings.PINECONE_API_KEY
+GOOGLE_API_KEY = settings.GOOGLE_API_KEY
 
 # --- Validation ---
 if not PINECONE_API_KEY:
@@ -36,7 +36,7 @@ def get_gemini_embeddings(texts, task_type="retrieval_document"):
     """
     # The new Gemini SDK supports embedding a batch of documents directly
     response = gemini_client.models.embed_content(
-        model="models/text-embedding-004",
+        model=settings.EMBEDDING_MODEL,
         contents=texts,
         config=types.EmbedContentConfig(task_type=task_type)
     )

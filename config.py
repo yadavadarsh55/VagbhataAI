@@ -14,7 +14,7 @@ class Settings(BaseSettings):
         GOOGLE_API_KEY:      str = st.secrets["google"]["api_key"]
         PINECONE_API_KEY:    str = st.secrets["PINECONE_API_KEY"]
         PINECONE_INDEX_NAME: str = "vagbhata-index"
-        EMBEDDING_MODEL:     str = "models/text-embedding-004"
+        EMBEDDING_MODEL:     str = "gemini-embedding-001"
         LLM_MODEL:           str = "gemini-2.5-flash-lite"
     except AttributeError as e:
             st.error("Missing secret in .streamlit/secrets.toml. Check the logs.")

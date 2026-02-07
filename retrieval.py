@@ -28,3 +28,9 @@ def retrieve_from_pinecone(query: str, k: int = 5) -> List[Document]:
     except Exception as e:
         print(f"ERROR: Retrieval failed - {e}")
         return []
+    
+if __name__ == "__main__":
+
+    query = "Tell me about the three prakritis in the ayurveda"
+
+    retriever = retrieve_from_pinecone(query)
