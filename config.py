@@ -14,6 +14,7 @@ class Settings(BaseSettings):
         GOOGLE_API_KEY:      str = st.secrets["google"]["api_key"]
         PINECONE_API_KEY:    str = st.secrets["PINECONE_API_KEY"]
         PINECONE_INDEX_NAME: str = "vagbhata-index"
+        PINECONE_HOST:       str = "https://vagbhata-index-4y38u9z.svc.aped-4627-b74a.pinecone.io"
         EMBEDDING_MODEL:     str = "gemini-embedding-001"
         LLM_MODEL:           str = "gemini-2.5-flash-lite"
     except AttributeError as e:

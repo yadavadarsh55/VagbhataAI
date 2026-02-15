@@ -14,7 +14,8 @@ def get_vector_store() -> PineconeVectorStore:
         pinecone_api_key=settings.PINECONE_API_KEY,
         index_name=settings.PINECONE_INDEX_NAME,
         embedding=embeddings,
-        text_key="text_content"
+        text_key="text_content",
+        host=settings.PINECONE_HOST
     )
 
 def retrieve_from_pinecone(query: str, k: int = 5) -> List[Document]:
