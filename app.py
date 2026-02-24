@@ -198,6 +198,7 @@ if user_input:
     CONFIG = {'configurable': {'thread_id': st.session_state['thread_id']}}
     
     with PostgresSaver.from_conn_string(settings.database_url) as checkpointer:
+        checkpointer.setup()
         graph = build_graph()
         chatbot = graph.compile(checkpointer=checkpointer)
 
